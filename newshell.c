@@ -61,4 +61,17 @@ int main() {
     }
     free(line);
     return 0;
+
+    //the exit command 
+
+    int handle_builtin(char **args) 
+    {
+    if (strcmp(args[0], "exit") == 0) 
+    {
+        exit(0);  // Exit the shell
+    }
+
+    // Return 0 to indicate it's not a built-in you handle yet
+    return 0;
+}
 }
