@@ -4,7 +4,7 @@ CSCE 3600 – Major Assignment 2: Custom Shell (`newshell`)
 
 Vicky Wainaina – Responsible for newshell.c -main shell logic, redirection.
 
-Muhammud Elsell – Responsible for 
+Muhammud Elsell – Responsible for Exit command
 
 Emmanuel Moonga – Responsible for 
 
