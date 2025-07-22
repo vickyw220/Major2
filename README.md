@@ -36,6 +36,13 @@ Collaboration included debugging pipe handling, command tokenization, and build 
 
 ---
 
+to compile and run-
+
+gcc -o newshell newshell.c builtins.c history.c path.c redirect.c pipeline.c
+./newshell
+
+--
+
 Known Bugs or Problems
 
 -Pipe execution not fully implemented – Placeholder logic exists for parsing pipes, but executing piped commands across multiple processes needs refinement.
