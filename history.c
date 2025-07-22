@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "history.h"
 #define historysize 20
 static int historycount = 0;
 static int historyindex = 0;
