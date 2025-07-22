@@ -1,10 +1,5 @@
-#ifndef history.h
-#define history.h
-
+#ifndef HISTORY_H
+#define HISTORY_H
 void save_history(const char *line);
-void print_history();
-void clear_history();
-char *get_history_command(int index);
-
+void print_history(void);
 #endif
-

@@ -1,4 +1,3 @@
-//main file
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +6,8 @@
 #include "builtins.h"
 #include "pipeline.h"
 #include "history.h"
+#include "path.h"
+#include "redirect.h"
 
 #define MAX_ARGS 100
 
@@ -18,17 +19,15 @@ int main() {
     char *line = NULL;
     size_t len = 0;
 
+    init_path();  // load path from env
+
     while (1) {
         printf("newshell> ");
         if (getline(&line, &len, stdin) == -1) break;
 
-        //save line
         save_history(line);
-
-        //newline
         line[strcspn(line, "\n")] = 0;
 
-        //tokenize imput
         char *args[MAX_ARGS];
         int i = 0;
         args[i] = strtok(line, " ");
@@ -37,20 +36,20 @@ int main() {
         args[i] = NULL;
         if (args[0] == NULL) continue;
 
-        // built n check
         if (handle_builtin(args)) continue;
 
-        //pipe check
         if (contains_pipe(args)) {
             handle_pipeline(args);
             continue;
         }
 
-        //the redirection command
         pid_t pid = fork();
         if (pid == 0) {
             handle_redirection(args);
-            execvp(args[0], args);
+            char *full_path = find_in_path(args[0]);
+            if (full_path) {
+                execv(full_path, args);
+            }
             print_error();
             exit(1);
         } else if (pid > 0) {
@@ -59,19 +58,8 @@ int main() {
             print_error();
         }
     }
+
+    restore_original_path(); // on exit
     free(line);
     return 0;
-
-    //the exit command 
-
-    int handle_builtin(char **args) 
-    {
-    if (strcmp(args[0], "exit") == 0) 
-    {
-        exit(0);  // Exit the shell
-    }
-
-    // Return 0 to indicate it's not a built-in you handle yet
-    return 0;
-}
 }

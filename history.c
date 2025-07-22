@@ -2,40 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include "history.h"
-#define historysize 20
-static int historycount = 0;
-static int historyindex = 0;
-static char *history[historysize];
+
+#define HISTORY_SIZE 100
+static char *entries[HISTORY_SIZE];
+static int hist_index = 0, hist_count = 0;
+
 void save_history(const char *line) {
-    if (line == NULL || strlen(line) == 0 || strcmp(line, "\n") == 0) return;
-
-    if (history[historyindex]) {
-        free(history[historyindex]);
-    }
-    history[historyindex] = strdup(line);
-    historyindex = (historyindex + 1) % historysize;
-
-    if (history_count < historysize) {
-        history_count++;
-    }
+    if (entries[hist_index]) free(entries[hist_index]);
+    entries[hist_index] = strdup(line);
+    hist_index = (hist_index + 1) % HISTORY_SIZE;
+    if (hist_count < HISTORY_SIZE) hist_count++;
 }
+
 void print_history() {
-    int start = (historyindex - historycount + historysize) % historysize;
-    for (int i = 0; i < historycount; i++) {
-        int index = (start + i) % historysize;
-        printf("%d: %s", i, history[index]);
+    for (int i = 0; i < hist_count; i++) {
+        int idx = (hist_index - hist_count + i + HISTORY_SIZE) % HISTORY_SIZE;
+        printf("%d: %s", i + 1, entries[idx]);
     }
-}
-void clear_history() {
-    for (int i = 0; i < historysize; i++) {
-        free(history[i]);
-        history[i] = NULL;
-    }
-    historycount = 0;
-    historyindex = 0;
-}
-char *get_history_command(int index) {
-    if (index < 0 || index >= historycount) return NULL;
-    int realindex = (historyindex - historycount + index + historysize) % historysize;
-    return history[realindex] ? strdup(history[realindex]) : NULL;
 }
