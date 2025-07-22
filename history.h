@@ -1,5 +1,5 @@
-#ifndef myhistory.h
-#define myhistory.h
+#ifndef history.h
+#define history.h
 
 void save_history(const char *line);
 void print_history();
