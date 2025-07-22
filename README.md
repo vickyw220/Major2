@@ -6,7 +6,7 @@ Vicky Wainaina – Responsible for newshell.c -main shell logic, redirection.
 
 Muhammud Elsell – Responsible for Exit command
 
-Emmanuel Moonga – Responsible for cd command integration
+Emmanuel Moonga – Responsible for cd & path command integration
 
 Dustin Dowell – Responsible for myhistory command
 
