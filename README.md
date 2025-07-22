@@ -8,7 +8,7 @@ Muhammud Elsell – Responsible for Exit command
 
 Emmanuel Moonga – Responsible for 
 
-Dustin Dowell – Responsible for 
+Dustin Dowell – Responsible for myhistory command
 
 ---
 
